@@ -142,77 +142,109 @@
         //edit
         $('body').on('click','#edit-btn',function () {
             var user_id = $(this).data('id');
-             $.get('form'+'/'+user_id+'/edit', function (data) {
+            var username = $(this).data('username');
+            var user_email = $(this).data('email');
+            var user_address = $(this).data('address');
+            var user_phone = $(this).data('phone');
+            //plotting data to modal
+            $('#name').val(username);
+            $('#email').val(user_email);
+            $('#address').val(user_address);
+            $('#phone').val(user_phone);
+
+
+            //  $.get('form'+'/'+user_id+'/edit', function (data) {
+            //
+            //
+            var data = '<input type="hidden" data-name="' + username +'">'
                 $('#form-modal').modal('show');
-                $('#form-heading').html('Edit User');
-                $('#user_id').val(data.id);
-                $('#name').val(data.name);
-                $('#email').val(data.email);
-                $('#address').val(data.address);
-                $('#phone').val(data.phone);
-            })
+                 $('#form-heading').html('Edit User');
+            //     $('#user_id').val(data.id);
+            //     $('#name').val(data.name);
+            //     $('#email').val(data.email);
+            //     $('#address').val(data.address);
+            //     $('#phone').val(data.phone);
+            // })
             $('#form-modal').trigger("reset");
         });
 
         //save
-        $('#btn-save').click(function (e) {
-            e.preventDefault();
-            $( '#error-name' ).html( "" );
-            $( '#email-error' ).html( "" );
-            $( '#address-error' ).html( "" );
-            $( '#phone-error').html( "");
-            $.ajax({
-                data:$('#user_form').serialize(),
-                type:"POST",
-                url:"{{route('form.store')}}",
-                success:function (data) {
-                    console.log(data);
-                        $("#user-list").append("<tr id='user_id" + data.id + "'><td>" + data.id + "</td><td>" + data.name + "</td>" +
-                            "<td>"+data.email+"</td>"+
-                            "<td>"+data.address+"</td>"+
-                            "<td>"+data.phone+"</td>"+
-                           "<td><a href='javascript:void(0);' class='btn btn-info' id='edit-btn' data-id='" + data.id + "'><i class='fa fa-edit'></i></a>" +
-                           "<a href='javascript:void(0);' class='btn btn-danger delete-btn' id='delete-btn' data-id='" + data.id + "'><i class='fa fa-trash'></i></a>" +
-                            "</td></tr>");
-                    alert("data saved successfully!");
-                    $('#ack').html('Data saved successfully!');
-                    $('#user_form').trigger("reset");
-                    $('#form-modal').modal('hide',2000);
+        {{--$('#btn-save').click(function (e) {--}}
+        {{--    e.preventDefault();--}}
+        {{--    $( '#error-name' ).html( "" );--}}
+        {{--    $( '#email-error' ).html( "" );--}}
+        {{--    $( '#address-error' ).html( "" );--}}
+        {{--    $( '#phone-error').html( "");--}}
+        {{--    $.ajax({--}}
+        {{--        data:$('#user_form').serialize(),--}}
+        {{--        type:"POST",--}}
+        {{--        url:"{{route('form.store')}}",--}}
+        {{--        success:function (data) {--}}
+        {{--            console.log(data);--}}
+        {{--            var phone = data.phone ?  data.phone : '&nbsp;';--}}
 
-                },
-                error: function (data) {
-                      data = data.responseJSON;
-                       console.log(data);
-                       alert('Error:',data);
-                       //var phone = data.phone ? data.phone : '&nbsp';
-                        if(data.name) {
-                            $('#error-name').html(data.name[0]);
-                        }
-                        if(data.email){
-                            $('#error-email').html(data.email[0]);
-                        }
-                        if(data.address){
-                            $('#error-address').html(data.address[0]);
-                        }
-                        if(data.phone){
-                            $('#error-phone').html(data.phone[0]);
-                        }
-                    $('#form-modal').modal('show');
-                    $(document).on('hidden.bs.modal','#form-modal', function () {
-                       $('#user_form')[0].reset();
-                        $('#error-name').remove();
-                        $('#error-email').remove();
-                        $('#error-address').remove();
-                        $('#error-phone').remove();
+        {{--                $("#user-list").append("<tr id='user_id" + data.id + "'><td>" + data.id + "</td><td>" + data.name + "</td>" +--}}
+        {{--                    "<td>"+data.email+"</td>"+--}}
+        {{--                    "<td>"+data.address+"</td>"+--}}
+        {{--                    "<td>"+ phone + "</td>"+--}}
+        {{--                    // "<td><input type='hidden' > "+ phone + "</td>"+--}}
+        {{--                   "<td><a href='javascript:void(0);' class='btn btn-info' id='edit-btn' data-id='" + data.id + "'><i class='fa fa-edit'></i></a>" +--}}
+        {{--                   "<a href='javascript:void(0);' class='btn btn-danger delete-btn' id='delete-btn' data-id='" + data.id + "'><i class='fa fa-trash'></i></a>" +--}}
+        {{--                    "</td></tr>");--}}
+        {{--           // alert("data saved successfully!");--}}
+        {{--            $('#ack').html('Data saved successfully!');--}}
+        {{--            $('#user_form').trigger("reset");--}}
+        {{--            $('#form-modal').modal('hide',2000);--}}
 
-                    });
-                }
+        {{--        },--}}
+        {{--        error: function (data) {--}}
+        {{--              data = data.responseJSON;--}}
+        {{--               console.log(data);--}}
+        {{--               alert('Error:',data);--}}
+        {{--               //var phone = data.phone ? data.phone : '&nbsp';--}}
+        {{--                if(data.name) {--}}
+        {{--                    $('#error-name').html(data.name[0]);--}}
+        {{--                }--}}
+        {{--                if(data.email){--}}
+        {{--                    $('#error-email').html(data.email[0]);--}}
+        {{--                }--}}
+        {{--                if(data.address){--}}
+        {{--                    $('#error-address').html(data.address[0]);--}}
+        {{--                }--}}
+        {{--                if(data.phone){--}}
+        {{--                    $('#error-phone').html(data.phone[0]);--}}
+        {{--                }--}}
+        {{--            $('#form-modal').modal('show');--}}
+        {{--            $(document).on('hidden.bs.modal','#form-modal', function () {--}}
+        {{--               $('#user_form')[0].reset();--}}
+        {{--                $('#error-name').remove();--}}
+        {{--                $('#error-email').remove();--}}
+        {{--                $('#error-address').remove();--}}
+        {{--                $('#error-phone').remove();--}}
 
-            });
-            $('#user_form').trigger("reset");
+        {{--            });--}}
+        {{--        }--}}
 
-        });
+        {{--    });--}}
+        {{--    $('#user_form').trigger("reset");--}}
+
+        {{--});--}}
     });
+
+    $( '#form-modal').on('click', '#btn-save', function (e) {
+        // var user_id = $(this).closest('input #name').val();
+        // var username = $(this).data('username');
+        // var user_email = $(this).data('email');
+        // var user_address = $(this).data('address');
+
+        var name = $('#name').val();
+        var email = $('#email').val();
+        var address = $('#address').val();
+       var user_phone = $('#phone').val();
+      console.log(name,email,address,user_phone);
+      return false;
+
+    })
 
 </script>
 

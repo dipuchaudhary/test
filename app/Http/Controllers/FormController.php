@@ -119,4 +119,28 @@ class FormController extends Controller
 
         }
 
+        /**
+         * Updating data
+         */
+    public function update( Request $request)
+    {
+        dd($request->all());
+     $id = $request->get('id');
+     if($id)
+     {
+         try {
+             $update_data = [
+                 'name' => $request->get('name'),
+                 'email' => $request->get('email'),
+                 'address' => $request->get('address'),
+             ];
+
+             form::where('id', $id)->update($update_data);
+
+         }catch(\Exception $exception){
+             return response()->json(['error' =>'Something went wrong'],500);
+         }
+     }
+    }
+
 }

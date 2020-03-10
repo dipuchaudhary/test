@@ -39,7 +39,7 @@
                                         <td>{{$user->address}}</td>
                                         <td>{{$phone->phone}}</td>
                                         <td>
-                                        <a href="javascript:void(0);" class="btn btn-info" id="edit-btn" data-id="{{$user->id}}"><i class="fa fa-edit"></i></a>
+                                        <a href="javascript:void(0);" class="btn btn-info edit-btn" id="edit-btn" data-id="{{$user->id}}" data-username="{{$user->name}}" data-email="{{$user->email}}" data-address="{{$user->address}}" data-phone="{{$phone->phone}}" ><i class="fa fa-edit"></i></a>
                                         <a href="javascript:void(0);" class="btn btn-danger delete-btn" id="delete-btn" data-id="{{$user->id}}"><i class="fa fa-trash"></i></a>
                                         </td>
                                     </tr>
